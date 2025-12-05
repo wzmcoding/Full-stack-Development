@@ -11,7 +11,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./index.js"
+    "dev": "node ./index.js",
+    "lint": "eslint --quiet --ext js,vue ."
   },
   "dependencies": {
     "@babel/core": "^7.24.0",
@@ -80,5 +81,11 @@
     "webpack-dev-middleware": "^6.1.1",
     "webpack-hot-middleware": "^2.25.4",
     "webpack-merge": "^4.2.1"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint",
+      "commit": "validate-commit-msg"
+    }
   }
 }
