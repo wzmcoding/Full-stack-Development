@@ -13,6 +13,6 @@ module.exports = {
     },
     //获取当前环境
     get(){
-        return process.env._ENV
+        return process.env._ENV || 'local';
     }
 }

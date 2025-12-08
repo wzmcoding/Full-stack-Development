@@ -28,7 +28,6 @@ module.exports = {
         app.businessPath = path.resolve(app.baseDir, `.${sep}app`)
         // 初始化环境配置
         app.env = env;
-
         console.log(`===  [start] env: ${app.env.get()} ===`)
 
         // 加载 middleware
@@ -59,6 +58,7 @@ module.exports = {
         // 加载 router,需要写在加载其他中间件之后，在进行路由分发
         routerLoader(app);
         console.log(`===  [start] load router done ===`);
+
         // 启动服务
         const port = process.env.PORT || 8080;
         const host = process.env.IP || '0.0.0.0';
