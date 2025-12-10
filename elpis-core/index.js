@@ -16,6 +16,10 @@ module.exports = {
     /**
      * 启动项目
      * @param options 项目配置
+     * option = {
+     *   name,
+     *   homePage
+     * }
      */
     start(options = {}) {
         // 创建 Koa 实例
@@ -32,7 +36,6 @@ module.exports = {
 
         // 加载 middleware
         middlewareLoader(app);
-        console.log(app.middleware)
         console.log(`===  [start] load middleware done ===`);
 
         // 加载 router-schema
@@ -54,6 +57,14 @@ module.exports = {
         // 加载 extend
         extendLoader(app);
         console.log(`===  [start] load extend done ===`);
+
+        // 注册全局中间件
+        try{
+            require(`${app.businessPath}${sep}middleware.js`)(app);
+            console.log(` == [start] load global middleware done == `)
+        } catch (e) {
+            console.log(`[exception] there is no global middleware file`)
+        }
 
         // 加载 router,需要写在加载其他中间件之后，在进行路由分发
         routerLoader(app);
