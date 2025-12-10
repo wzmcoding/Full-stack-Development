@@ -11,13 +11,16 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./index.js",
-    "lint": "eslint --quiet --ext js,vue ."
+    "lint": "eslint --quiet --ext js,vue .",
+    "dev":"cross-env _ENV='local' nodemon node index.js",
+    "beta":"cross-env _ENV='beta' nodemon node index.js",
+    "prod":"cross-env _ENV='production' nodemon node index.js"
   },
   "dependencies": {
     "@babel/core": "^7.24.0",
     "ajv": "^6.10.2",
     "axios": "^0.19.2",
+    "cross-env": "^10.1.0",
     "echarts": "^5.5.0",
     "element-plus": "^2.3.7",
     "generate-password": "^1.7.1",
