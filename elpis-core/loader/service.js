@@ -36,12 +36,12 @@ module.exports = (app) => {
         const names = name.split(sep);
         for(let i = 0 ,len = names.length; i<len;++i){
             if(i === len -1){
-                tempService[name[i]] = require(path.resolve(file))(app);
+                tempService[name[i]] = require(path.resolve(file))(app);  // { customModule: { customService: require(path.resolve(file))(app) } }
             }else{
                 if(!tempService[name[i]]){
-                    tempService[name[i]] = {}
+                    tempService[name[i]] = {} // { customModule: {} }
                 }
-                tempService = tempService[name[i]]
+                tempService = tempService[name[i]] // { customModule: {} } 取的 customModule对象重新赋值给tempService，处理嵌套结构
             }
         }
     });
