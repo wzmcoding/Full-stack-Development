@@ -17,8 +17,8 @@ const { sep } = path;
 
 module.exports = (app) => {
     //读取 app/extend/ 文件夹下所有.js文件
-    const extendPath = path.resolve(app.businessPath, `${sep}extend`);
-    const fileList = glob.sync(path.resolve(extendPath, `${sep}**${sep}**.js`))
+    const extendPath = path.resolve(app.businessPath, `.${sep}extend`);
+    const fileList = glob.sync(path.resolve(extendPath, `.${sep}**${sep}**.js`))
 
     //遍历所有文件目录,把内容加载到 app.extend 下
     fileList.forEach(file=>{
