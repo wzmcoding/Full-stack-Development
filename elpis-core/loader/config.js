@@ -38,5 +38,7 @@ module.exports = (app) => {
     } catch (e) {
         console.log('[exception] there is no default.config file')
     }
+
+    // 覆盖并加载 config 配置
     app.config = Object.assign({}, defaultConfig, envConfig)
 }
