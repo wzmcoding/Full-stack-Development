@@ -24,7 +24,7 @@ module.exports = (app) => {
     // 路由兜底（健壮性）
     router.get('*',async (ctx,next)=>{
         ctx.status = 302 //临时重定向
-        ctx.redirect(`${app?.options?.homePage}`)
+        ctx.redirect(`${app?.options?.homePage ?? '/'}`)
     })
     // 将路由注册到 app 上
     app.use(router.routes())

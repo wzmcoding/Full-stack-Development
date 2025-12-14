@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <title>{{ name }}</title>
+        <link href="/static/normalize.css" rel="stylesheet"  />
+        <link href="/static/logo.png" rel="icon" type="image/x-icon"  />
     </head>
 <body style="color: blue;">
     <h1>Page1</h1>
