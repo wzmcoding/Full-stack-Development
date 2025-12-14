@@ -36,7 +36,9 @@ module.exports = (app) => {
         const names = name.split(sep);
         for(let i = 0 ,len = names.length; i<len;++i){
             if(i === len -1){
-                tempService[names[i]] = require(path.resolve(file))(app);  // { customModule: { customService: require(path.resolve(file))(app) } }
+                const ServiceModule = require(path.resolve(file))(app);
+                tempService[names[i]] = new ServiceModule();
+                // tempService[names[i]] = require(path.resolve(file))(app);  // { customModule: { customService: require(path.resolve(file))(app) } }
             }else{
                 if(!tempService[names[i]]){
                     tempService[names[i]] = {} // { customModule: {} }
