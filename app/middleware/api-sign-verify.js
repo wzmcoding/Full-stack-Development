@@ -1,3 +1,5 @@
+const md5 = require('md5');
+
 /**
  * API 签名合法性校验
  */
@@ -12,7 +14,19 @@ module.exports = (app) => {
         const { headers } = ctx.request;
         const { s_sign: sSign, s_t: st } = headers;
 
-        const signKey = ''
+        const signKey = 'happyWang12385398593583958395835';
+        const signature = md5(`${signKey}_${st}`);
+        app.logger.info(`[${method} ${path}] signature: ${signature}`);
+
+        if(!sSign || !st || signature !== sSign.toLowerCase() || Date.now() - st > 600000) {
+            ctx.status = 200;
+            ctx.body = {
+                success: false,
+                message: 'signature not correct or api timeout!!',
+                code: 445
+            }
+            return;
+        }
 
         await next();
     }
