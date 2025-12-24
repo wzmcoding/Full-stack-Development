@@ -1,4 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 /**
  * webpack 基础配置
  */
@@ -66,7 +69,40 @@ module.exports = {
         },
     },
     // 配置 webpack 插件
-    plugins: [],
+    plugins: [
+        // 处理 .vue 文件， 这个插件是必须的
+        // 它的作用是将你定义过的其他规则复制并应用到 .vue 文件里
+        // 例如，如果有一条匹配规则 /\.js$/ 的规则，那么它会应用到 .vue 文件中的 <script> 板块中
+        new VueLoaderPlugin(),
+        // 把第三方库暴露到 window context 下
+        new webpack.ProvidePlugin({
+            Vue: 'vue',
+        }),
+        // 定义全局常量
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: true, // 支持 vue 解析 options api
+            __VUE_PROD_DEVTOOLS__: false, // 禁用 vue devtools
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false, // 禁用生产环境显示“水合”信息
+        }),
+        // 构造最终渲染的页面模板
+        new HtmlWebpackPlugin({
+            // 产物（最终模板）输出路径
+            filename: path.resolve(process.cwd(), "./app/public/dist/", 'entry.page1.tpl'),
+            // 指定要使用的模板文件
+            template: path.resolve(process.cwd(), './app/view/entry.tpl'),
+            // 要注入的代码块
+            chunks: ['entry.page1']
+        }),
+        // 构造最终渲染的页面模板
+        new HtmlWebpackPlugin({
+            // 产物（最终模板）输出路径
+            filename: path.resolve(process.cwd(), "./app/public/dist/", 'entry.page2.tpl'),
+            // 指定要使用的模板文件
+            template: path.resolve(process.cwd(), './app/view/entry.tpl'),
+            // 要注入的代码块
+            chunks: ['entry.page2']
+        }),
+    ],
     // 配置代码打包输出优化（代码分割，模块合并，缓存，TreeShaking,压缩等优化策略）
     optimization: {}
 }
