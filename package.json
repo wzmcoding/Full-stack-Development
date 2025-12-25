@@ -8,7 +8,6 @@
   },
   "license": "ISC",
   "author": "happyWang",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --quiet --ext js,vue .",

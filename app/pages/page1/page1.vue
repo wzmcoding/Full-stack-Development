@@ -3,8 +3,9 @@
   <input v-model="content" />
 </template>
 <script setup>
-import {ref} from 'vue';
+import { ref } from 'vue';
+import utils from '$common/utils';
 const content = ref('')
 console.log('page1')
 </script>
-<style lane="less" scoped></style>
+<style lang="less" scoped></style>
