@@ -4,7 +4,8 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+import utils from '$common/utils';
 const content = ref('')
 console.log('page2')
 </script>
-<style lane="less" scoped></style>
+<style lang="less" scoped></style>
