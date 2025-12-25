@@ -76,7 +76,7 @@ module.exports = {
             }
         ]
     },
-    // 产物输出路径
+    // 产物输出路径, 因为开发环境和生产环境输出不一致，所以在各自环境中自行配置
     output: {
         filename: 'js/[name]_[chunkhash:8].bundle.js',
         path: path.join(process.cwd(), "./app/public/dist/prod"),
