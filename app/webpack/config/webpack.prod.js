@@ -4,10 +4,13 @@ const os = require('os');
 const HappyPack = require('happypack');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ClearWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackInjectAttributesPlugin = require('html-webpack-inject-attributes-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 // 多线程 build 设置
-const happpackCommonConfig = {
+const happypackCommonConfig = {
     debug: false,
     threadPool: HappyPack.ThreadPool({ size: os.cpus().length })
 }
@@ -60,20 +63,53 @@ const webpackConfig = merge.smart(baseConfig, {
             dry: false
         }),
         // 提取 css 的公共部分，有效利用缓存（非公共部分使用 inline）
-
+        new MiniCssExtractPlugin({
+            chunkFilename: 'css/[name]_[contenthash:8].bundle.css',
+        }),
         // 优化并压缩 css 资源
-
+        new CSSMinimizerPlugin(),
         // 多线程打包 js, 加快打包速度
-
+        new HappyPack({
+            ...happypackCommonConfig,
+            id: 'js',
+            loaders: [`babel-loader?${JSON.stringify({
+                presets: ['@babel/preset-env'],
+                plugins: [
+                    '@babel/plugin-transform-runtime'
+                ]
+            })}`]
+        }),
         // 多线程打包 css, 加快打包速度
-
+        new HappyPack({
+            ...happypackCommonConfig,
+            id: 'css',
+            loaders: [{
+                path: 'css-loader',
+                options: {
+                    importLoaders: 1,
+                }
+            }]
+        }),
         // 浏览器在请求资源时不发送用户的身份凭证
-
+        new HtmlWebpackInjectAttributesPlugin({
+            crossOrigin: 'anonymous'
+        }),
     ],
     optimization: {
         // 使用 TerserPlugin 的并发和缓存，提升压缩阶段的性能
-
         // 清除 console.log
+        minimize: true,
+        minimizer: [
+            new TerserWebpackPlugin({
+                cache: true, // 启用缓存来加速构建过程
+                parallel: true, // 利用多核cpu的优势来加快压缩速度
+                terserOptions: {
+                    compress: {
+                        drop_console: true, // 去掉 console.log 内容
+                    }
+                }
+            })
+        ]
     }
 });
 
