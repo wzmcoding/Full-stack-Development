@@ -135,5 +135,7 @@ module.exports = {
                 }
             }
         },
+        // 将 webpack 运行时生成的代码打包到 runtime.js
+        runtimeChunk: true,
     }
 }

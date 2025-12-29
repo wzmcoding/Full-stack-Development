@@ -62,7 +62,7 @@ const webpackConfig = merge.smart(baseConfig, {
             verbose: true,
             dry: false
         }),
-        // 提取 css 的公共部分，有效利用缓存（非公共部分使用 inline）
+        // 提取 css 的公共部分，有效利用缓存
         new MiniCssExtractPlugin({
             chunkFilename: 'css/[name]_[contenthash:8].bundle.css',
         }),
