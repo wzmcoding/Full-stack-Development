@@ -56,10 +56,10 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)(\?.+)?$/,
                 use: {
                     loader: 'url-loader',
-                    options: {
-                        limit: 300,
-                        esModule: false,
-                    }
+                    // options: {
+                    //     limit: 300,
+                    //     esModule: false,
+                    // }
                 }
             },
             {
@@ -77,12 +77,7 @@ module.exports = {
         ]
     },
     // 产物输出路径, 因为开发环境和生产环境输出不一致，所以在各自环境中自行配置
-    output: {
-        // filename: 'js/[name]_[chunkhash:8].bundle.js',
-        // path: path.join(process.cwd(), "./app/public/dist/prod"),
-        // publicPath: '/dist/prod',
-        // crossOriginLoading: 'anonymous',
-    },
+    output: {},
     // 配置模块解析的具体行为(找到具体的路径)
     resolve: {
         extensions: ['.js', '.vue', '.less', '.css'],
@@ -135,5 +130,7 @@ module.exports = {
                 }
             }
         },
+        // 将 webpack 运行时生成的代码打包到 runtime.js
+        runtimeChunk: true,
     }
 }

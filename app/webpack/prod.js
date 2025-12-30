@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const webpackProdConfig = require('./config/webpack.prod.js')
+const webpackProdConfig = require('./config/webpack.prod.js');
 
 console.log(' --- building ---')
 
