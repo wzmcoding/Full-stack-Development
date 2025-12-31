@@ -11,5 +11,12 @@ module.exports = (app) => {
             const projectList = await projectService.getList();
             this.success(ctx, projectList);
         }
+
+        async list(ctx) {
+            const { project: projectService } = app.service;
+            const res = await projectService.list();
+            app.logger.info(process.env._ENV,app.env.isLocal())
+            this.success(ctx, res)
+        }
     };
 }
