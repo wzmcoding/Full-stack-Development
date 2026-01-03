@@ -18,7 +18,7 @@ const curl = ({
     errorMessages = '网络异常'
 }) => {
     // 接口签名处理（让接口变动态）
-    const signKey = "adsadsads3313131adsadasdda1111"
+    const signKey = "happyWang12385398593583958395835"
     const st = Date.now()
     // 构造请求参数
     const axiosSetting = {
@@ -33,13 +33,11 @@ const curl = ({
         data,
         responseType,
         timeout,
-        errorMessages
     }
     return axios.request(axiosSetting).then((response) => {
         const resData = response.data || {}
         // 后端返回格式
         const { success } = resData
-        console.log(resData)
         // 失败
         if (!success) {
             const { message, code } = resData
