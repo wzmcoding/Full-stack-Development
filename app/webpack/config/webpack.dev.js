@@ -21,7 +21,7 @@ Object.keys(baseConfig.entry).forEach(v => {
             // 主入口文件
             baseConfig.entry[v],
             // hmr 更新入口，官方指定的 hmr 路径
-            `webpack-hot-middleware/client?path=http://${DEV_SERVER_CONFIG.HOST}:${DEV_SERVER_CONFIG.PORT}/${DEV_SERVER_CONFIG.HMR_PATH}?timeout=${DEV_SERVER_CONFIG.TIMEOUT}`
+            `webpack-hot-middleware/client?path=http://${DEV_SERVER_CONFIG.HOST}:${DEV_SERVER_CONFIG.PORT}/${DEV_SERVER_CONFIG.HMR_PATH}&timeout=${DEV_SERVER_CONFIG.TIMEOUT}`
         ]
     }
 })
@@ -34,7 +34,7 @@ const webpackConfig = merge.smart(baseConfig, {
     output: {
         filename: 'js/[name]_[chunkhash:8].bundle.js',// 输出文件名称
         path: path.resolve(process.cwd(), './app/public/dist/dev/'), // 输出文件路径
-        publicPath: `http://${DEV_SERVER_CONFIG.HOST}:${DEV_SERVER_CONFIG.PORT}/public/dist/dev`, // 外部资源公共路径
+        publicPath: `http://${DEV_SERVER_CONFIG.HOST}:${DEV_SERVER_CONFIG.PORT}/public/dist/dev/`, // 外部资源公共路径
         globalObject: 'this'
     },
     plugins: [

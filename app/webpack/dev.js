@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '../public/dist')))
 // 引用 devMiddleware 中间件 （监控文件改动）
 app.use(devMiddleware(compiler, {
     // 落地文件
-    writeToDisk: (filePath) => filePath.endsWith('html'),
+    writeToDisk: (filePath) => filePath.endsWith('.tpl'),
     // 资源路径
     publicPath: webpackConfig.output.publicPath,
     // headers 配置
