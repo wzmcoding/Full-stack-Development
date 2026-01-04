@@ -38,9 +38,16 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                use: {
-                    loader: 'vue-loader',
-                }
+                use: [
+                    {
+                        loader: 'vue-loader',
+                        options: {
+                            compilerOptions: {
+                                preserveWhitespace: false
+                            }
+                        }
+                    }
+                ]
             },
             {
                 test: /\.js$/,
@@ -48,9 +55,17 @@ module.exports = {
                     // 只对业务代码进行 babel, 加快 webpack 打包速度
                     path.resolve(process.cwd(), './app/pages'),
                 ],
-                use: {
-                    loader: 'babel-loader',
-                }
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                '@babel/preset-env'
+                            ]
+                        }
+                    }
+                ],
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|jpe?g|gif)(\?.+)?$/,
