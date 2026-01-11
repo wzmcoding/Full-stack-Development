@@ -10,7 +10,7 @@ module.exports = {
         customConfig: {
             path: '/todo'
         }
-    },{
+    }, {
         key: 'customer',
         name: '客户管理（拼多多）',
         menuType: 'module',
@@ -18,7 +18,7 @@ module.exports = {
         customConfig: {
             path: '/todo'
         }
-    },{
+    }, {
         key: 'data',
         name: '数据分析（拼多多）',
         menuType: 'module',
@@ -26,7 +26,7 @@ module.exports = {
         siderConfig: {
             menu: [{
                 key: 'analysis',
-                name: '电商落盘',
+                name: '电商罗盘',
                 menuType: 'module',
                 moduleType: 'custom',
                 customConfig: {
@@ -37,16 +37,16 @@ module.exports = {
                 name: '信息查询',
                 moduleType: 'iframe',
                 iframeConfig: {
-                    url: 'https://www.baidu.com'
+                    path: 'https://www.baidu.com'
                 }
             }]
         }
-    },{
+    }, {
         key: 'search',
         name: '信息查询（拼多多）',
         menuType: 'iframe',
         iframeConfig: {
-            url: 'https://www.baidu.com'
+            path: 'https://www.baidu.com'
         }
     }]
 }

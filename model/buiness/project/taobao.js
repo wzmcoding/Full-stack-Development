@@ -15,21 +15,21 @@ module.exports = {
                 customConfig: {
                     path: '/todo'
                 }
-            },{
+            }, {
                 key: 'limited',
                 name: '限购量',
                 menuType: 'module',
                 customConfig: {
                     path: '/todo'
                 }
-            },{
+            }, {
                 key: 'festival',
                 name: '节日活动',
                 menuType: 'module',
                 customConfig: {
                     path: '/todo'
                 }
-            } ]
+            }]
         }
     }]
 }

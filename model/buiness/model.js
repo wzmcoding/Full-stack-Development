@@ -9,7 +9,7 @@ module.exports = {
         customConfig: {
             path: '/todo'
         }
-    },{
+    }, {
         key: 'order',
         name: '订单管理',
         menuType: 'module',
@@ -17,7 +17,7 @@ module.exports = {
         customConfig: {
             path: '/todo'
         }
-    },{
+    }, {
         key: 'customer',
         name: '客户管理',
         menuType: 'module',
