@@ -1,5 +1,7 @@
 module.exports = (app) => {
     const BaseService = require('./base')(app);
+    const modelList = require('../../model/index.js')(app);
+    console.log('modelList in project service:', JSON.stringify(modelList));
     return class ProjectService extends BaseService {
         /**
          * 获取项目列表

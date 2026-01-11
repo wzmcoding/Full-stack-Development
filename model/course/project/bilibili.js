@@ -4,10 +4,10 @@ module.exports = {
     homePage: '',
     menu: [{
         key: 'video',
-        name: '视频管理',
+        name: '视频管理（B站）',
     }, {
         key: 'user',
-        name: '用户管理',
+        name: '用户管理（B站）',
     }, {
         key: 'classes',
         name: '课程资料',

@@ -12,12 +12,12 @@ const projectExtendModel = (model, project) => {
             let result = [];
             // 因为 project 继承 model 所以需要处理修改和新增内容的情况
             // project 有的键值 model 也有 => 修改 （重载）
-            // project 有的键值 model 没有 => 新增
+            // project 有的键值 model 没有 => 新增 （拓展）
             // model 有的键值 project 没有 => 保留 （继承）
 
             // 处理修改
             for (let i = 0; i < modelValue.length; ++i) {
-                let  modelItem = modelValue[i];
+                let modelItem = modelValue[i];
                 const projectItem = projectValue.find(item => item.key === modelItem.key);
                 // 都有的话， 则递归调用 projectExtendModel 方法覆盖修改
                 result.push(projectItem ? projectExtendModel(modelItem, projectItem) : modelItem);
@@ -39,30 +39,27 @@ const projectExtendModel = (model, project) => {
 
 
 /**
- * 解析 model 配置 ，并返回组织切记成后的数据机构
+ * 解析 model 配置 ，并返回组织且继承后的数据结构
  * [{
  *      model: ${model},
  *      project: {
  *          proj1: ${proj1},
  *          proj2: ${proj2}
  *      }
- *  }]
- *
+ *  }, ...]
  */
 
 module.exports = (app) => {
     const modelList = [];
 
-    // 便利当前文件夹， 构造模型数据结构， 挂载到 modelList 上
+    // 遍历当前文件夹， 构造模型数据结构， 挂载到 modelList 上
     const modelPath = path.resolve(app.baseDir, `.${sep}model`);
 
-    const filePath = glob.sync(path.resolve(modelPath, `.${sep}**${sep}**.js`));
-    filePath.forEach(file => {
-        if(file.indexOf('index.js') > -1) { return; }
-
+    const fileList = glob.sync(path.resolve(modelPath, `.${sep}**${sep}**.js`));
+    fileList.forEach(file => {
+        if (file.indexOf('index.js') > -1) { return; }
         // 区分配置类型 （ model  / project ）
-        const type = file.indexOf(`${sep}project${sep}`) > -1 ? 'project' : 'model';
-        console.log(type + ': ' +file);
+        const type = file.indexOf(`/project/`) > -1 ? 'project' : 'model';
 
         if (type === 'project') {
             const modelKey = file.match(/\/model\/(.*?)\/project/)?.[1];
@@ -98,7 +95,7 @@ module.exports = (app) => {
 
         }
 
-        if( type === 'model') {
+        if (type === 'model') {
             const modelKey = file.match(/\/model\/(.*?)\/model\.js/)?.[1];
             let modelItem = modelList.find(item => item.model?.key === modelKey);
             if (!modelItem) {
@@ -113,7 +110,7 @@ module.exports = (app) => {
     // 数据进一步整理： project => 继承
     modelList.forEach(item => {
         const { model, project } = item;
-        for(const projectKey in project) {
+        for (const projectKey in project) {
             project[projectKey] = projectExtendModel(model, project[projectKey]);
         }
     })
