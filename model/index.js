@@ -73,25 +73,10 @@ module.exports = (app) => {
             if (!modelItem.project) {
                 modelItem.project = {};
             }
-            if (projectKey == 'pdd') {
-                console.log('pdd', projectKey);
-                console.log('modelList:', modelList);
-                console.log('modelItem:', modelItem);
-                console.log(path.resolve(file));
-            }
-
 
             modelItem.project[projectKey] = require(path.resolve(file));
-            if (projectKey == 'pdd') {
-                console.log('modelItem:', modelItem);
-            }
 
             modelItem.project[projectKey].key = projectKey; // 注入 projectKey
-            if (projectKey == 'bilibili') {
-                console.log('bilibili', projectKey);
-                console.log('modelList:', modelList);
-                console.log('modelItem:', modelItem);
-            }
 
         }
 
