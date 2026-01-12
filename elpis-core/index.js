@@ -59,7 +59,7 @@ module.exports = {
         console.log(`===  [start] load extend done ===`);
 
         // 注册全局中间件
-        try{
+        try {
             require(`${app.businessPath}${sep}middleware.js`)(app);
             console.log(` == [start] load global middleware done == `)
         } catch (e) {
@@ -75,5 +75,7 @@ module.exports = {
         const host = process.env.IP || '0.0.0.0';
         app.listen(port, host);
         console.log(`Server listening on ${host}:${port}`);
+
+        return app;
     }
 }
