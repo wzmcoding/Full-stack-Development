@@ -23,7 +23,6 @@ describe('测试 project 相关接口', function () {
         const res = await tmpRequest;
 
         assert(res.body.success === true);
-        console.log(JSON.stringify(res.body.data, null, 2));
         const resData = res.body.data;
         assert(resData.length > 0);
 
