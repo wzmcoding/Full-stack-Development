@@ -1,7 +1,17 @@
 module.exports = {
-    '/api/project/model_list': {
+    '/api/project/list': {
         get: {
-            
+            query: {
+                type: 'object',
+                properties: {
+                    proj_key: {
+                        type: 'string'
+                    }
+                }
+            }
         }
+    },
+    '/api/project/model_list': {
+        get: {}
     }
 }

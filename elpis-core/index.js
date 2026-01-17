@@ -71,7 +71,7 @@ module.exports = {
         console.log(`===  [start] load router done ===`);
 
         // 启动服务
-        const port = process.env.PORT || 8080;
+        const port = process.env.PORT || 8888;
         const host = process.env.IP || '0.0.0.0';
         app.listen(port, host);
         console.log(`Server listening on ${host}:${port}`);
