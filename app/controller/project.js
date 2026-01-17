@@ -2,6 +2,24 @@ module.exports = (app) => {
     const BaseController = require('./base')(app);
     return class ProjectController extends BaseController {
         /**
+         * 获取当前 projectKey 对应模型下的项目列表（如果无 projKey,则全量获取）
+         */
+        getList(ctx) {
+            const { proj_key: projKey } = ctx.request.query;
+
+            const { project: projectService } = app.service;
+            const projectList = projectService.getList({projKey});
+
+            // 构造关键数据 list
+            const dtoProjectList = projectList.map(item => {
+                const { modelKey, key, name, desc, homePage } = item;
+                return { modelKey, key, name, desc, homePage};
+            });
+
+            this.success(ctx, dtoProjectList);
+        }
+
+        /**
          * 获取所有模型与项目的结构化数据
          */
         async getModelList(ctx) {
