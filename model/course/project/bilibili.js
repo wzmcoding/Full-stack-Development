@@ -9,7 +9,7 @@ module.exports = {
         key: 'user',
         name: '用户管理（B站）',
     }, {
-        key: 'classes',
+        key: 'resource',
         name: '课程资料',
         menuType: 'module',
         moduleType: 'sider',

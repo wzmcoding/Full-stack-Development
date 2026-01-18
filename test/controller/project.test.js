@@ -25,6 +25,111 @@ describe('测试 project 相关接口', function () {
         request = supertest(app.listen())
     })
 
+    it('GET /api/project without proj_key', async () => {
+        let tmpRequest = request.get('/api/project');
+        tmpRequest = tmpRequest.set('s_t', st);
+        tmpRequest = tmpRequest.set('s_sign', md5(`${signKey}_${st}`));
+        const res = await tmpRequest;
+        assert(res.body.success === false);
+
+        const resBody = res.body;
+        assert(resBody.code === 442);
+        assert(resBody.message.indexOf(`request validate fail: data should have required property 'proj_key'`) > -1);
+    })
+
+    it('GET /api/project fail', async () => {
+        let tmpRequest = request.get('/api/project');
+        tmpRequest = tmpRequest.set('s_t', st);
+        tmpRequest = tmpRequest.set('s_sign', md5(`${signKey}_${st}`));
+        tmpRequest = tmpRequest.query({ proj_key: 'not_exist_proj_key' });
+        const res = await tmpRequest;
+        assert(res.body.success === false);
+
+        const resBody = res.body;
+        assert(resBody.code === 50000);
+        assert(resBody.message === '获取项目异常');
+    })
+
+    it('GET /api/project with proj_key', async () => {
+        for (let i = 0; i < projectList.length; ++i) {
+            const { key: projKey} = projectList[i];
+
+            console.log(`--------- GET /api/project with proj_key: ${projKey}`);
+
+            let tmpRequest = request.get('/api/project');
+            tmpRequest = tmpRequest.set('s_t', st);
+            tmpRequest = tmpRequest.set('s_sign', md5(`${signKey}_${st}`));
+            tmpRequest = tmpRequest.query({ proj_key: projKey });
+
+            const res = await tmpRequest;
+            assert(res.body.success === true);
+
+            const resData = res.body.data;
+            assert(resData.key === projKey);
+            assert(resData.modelKey);
+            assert(resData.name);
+            assert(resData.desc !== undefined);
+            assert(resData.homePage !== undefined);
+
+            const { menu } = resData;
+            menu.forEach(menuItem => {
+                checkMenuItem(menuItem);
+            });
+        }
+
+        function checkMenuItem(menuItem) {
+            console.log(`--------- GET /api/project with proj_key - menuKey:${menuItem.key}`);
+            assert(menuItem.key);
+            assert(menuItem.name);
+            assert(menuItem.menuType);
+
+            if (menuItem.menuType === 'group') {
+                assert(menuItem.subMenu !== undefined);
+                menuItem.subMenu.forEach(subMenuItem => {
+                    checkMenuItem(subMenuItem);
+                });
+            }
+
+            if (menuItem.menuType === 'module') {
+                checkModule(menuItem);
+            }
+        }
+
+        // 检查 module 菜单配置
+        function checkModule(moduleItem) {
+            const { moduleType } = moduleItem;
+            assert(moduleType);
+
+            if (moduleType === 'sider') {
+                const { siderConfig } = moduleItem;
+                assert(siderConfig);
+                assert(siderConfig.menu);
+                siderConfig.menu.forEach(siderMenuItem => {
+                   checkMenuItem(siderMenuItem);
+                });
+            }
+
+            if (moduleType === 'iframe') {
+                const { iframeConfig } = moduleItem;
+                assert(iframeConfig);
+                assert(iframeConfig.path !== undefined);
+            }
+
+            if (moduleType === 'custom') {
+                const { customConfig } = moduleItem;
+                assert(customConfig);
+                assert(customConfig.path !== undefined);
+            }
+
+            if (moduleType === 'schema') {
+                const { schemaConfig } = moduleItem;
+                assert(schemaConfig);
+                assert(schemaConfig.api !== undefined);
+                assert(schemaConfig.schema);
+            }
+        }
+    })
+
     it('GET /api/project/list without proj_key', async () => {
         let tmpRequest = request.get('/api/project/list');
         tmpRequest = tmpRequest.set('s_t', st);

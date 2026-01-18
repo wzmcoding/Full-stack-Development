@@ -2,6 +2,23 @@ module.exports = (app) => {
     const BaseController = require('./base')(app);
     return class ProjectController extends BaseController {
         /**
+         * 根据 proj_key 获取项目配置
+         */
+        get(ctx) {
+            const { proj_key: projKey } = ctx.request.query;
+
+            const { project: projectService } = app.service;
+            const projConfig = projectService.get(projKey);
+
+            if (!projConfig) {
+                this.fail(ctx, '获取项目异常', 50000);
+                return;
+            }
+
+            this.success(ctx, projConfig);
+        }
+
+        /**
          * 获取当前 projectKey 对应模型下的项目列表（如果无 projKey,则全量获取）
          */
         getList(ctx) {
