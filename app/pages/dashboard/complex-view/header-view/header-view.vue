@@ -3,9 +3,11 @@ import headerContainer from '$widgets/header-container/header-container.vue';
 import SubMenu from './complex-view/sub-menu/sub-menu.vue';
 import { useMenuStore } from '$store/menu.js';
 import { useProjectStore } from '$store/project.js';
-import { ref } from 'vue';
+import { ref, watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { ArrowDown } from "@element-plus/icons-vue";
 
+const route = useRoute();
 const menuStore = useMenuStore();
 const projectStore = useProjectStore();
 
@@ -13,13 +15,37 @@ defineProps({
   projName: String,
 })
 
-const activeKey = ref('');
-const onMenuSelect = function () {
+const emit = defineEmits(['menu-select']);
 
+const activeKey = ref('');
+watch(() => route.query.key, setActiveKey);
+watch(() => menuStore.menuList, setActiveKey)
+onMounted(() => {
+  setActiveKey();
+});
+
+const setActiveKey = function () {
+  const menuItem = menuStore.findMenuItem({
+    key: 'key',
+    value: route.query.key
+  });
+  activeKey.value = menuItem?.key;
+}
+
+const onMenuSelect = function (menuKey) {
+  const menuItem = menuStore.findMenuItem({
+    key: 'key',
+    value: menuKey
+  });
+  emit('menu-select', menuItem);
 }
 
 const handleProjectCommand = function (command) {
-  console.log(command);
+  const projectItem = projectStore.projectList.find(item => item.key === command);
+  if (!projectItem || !projectItem.homePage) return;
+  const { origin, pathname } = window.location;
+  window.location.replace(`${origin}${pathname}#${projectItem.homePage}`);
+  window.location.reload();
 }
 </script>
 

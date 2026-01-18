@@ -1,11 +1,14 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from 'vue-router';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import headerView from './complex-view/header-view/header-view.vue'
 import $curl from '$common/curl.js';
 import { useMenuStore } from '$store/menu.js';
 import { useProjectStore } from '$store/project.js';
 
+const router = useRouter();
+const route = useRoute();
 const menuStore = useMenuStore();
 const projectStore = useProjectStore();
 
@@ -22,8 +25,7 @@ async function getProjectList() {
     method: 'get',
     url: '/api/project/list',
     query: {
-      // TODO: 动态获取当前项目 key, 暂时先写死 pdd
-      proj_key: 'pdd',
+      proj_key: route.query.proj_key,
     },
   })
 
@@ -39,8 +41,7 @@ async function getProjectConfig() {
     method: 'get',
     url: '/api/project',
     query: {
-      // TODO: 动态获取当前项目 key, 暂时先写死 pdd
-      proj_key: 'pdd',
+      proj_key: route.query.proj_key,
     },
   })
 
@@ -52,11 +53,38 @@ async function getProjectConfig() {
   projName.value = name;
   menuStore.setMenuList(menu);
 }
+
+// 点击菜单回调方法
+const onMenuSelect = (menuItem) => {
+  const { moduleType, key, customConfig } = menuItem;
+
+  // 如果是当前页面，不处理
+  if (key === route.query.key) return;
+
+  const pathMap = {
+    sider: '/sider',
+    iframe: '/iframe',
+    schema: '/schema',
+    custom: customConfig?.path,
+  }
+
+  router.push({
+    path: pathMap[moduleType],
+    query: {
+      key,
+      proj_key: route.query.proj_key,
+    },
+  });
+}
 </script>
 
 <template>
   <el-config-provider :locale="zhCn">
-    <headerView :projName="projName"></headerView>
+    <headerView :projName="projName" @menu-select="onMenuSelect">
+      <template #main-content>
+        <router-view></router-view>
+      </template>
+    </headerView>
   </el-config-provider>
 </template>
 

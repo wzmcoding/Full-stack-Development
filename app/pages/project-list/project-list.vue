@@ -20,7 +20,6 @@ async function getModelList() {
   }
 
   modelList.value = res.data
-  console.log(res.data)
 }
 
 onMounted(() => {
@@ -28,7 +27,8 @@ onMounted(() => {
 })
 
 const onEnter = (projItem) => {
-  console.log(`跳转到${projItem.name}`)
+  const { origin } = window.location;
+  window.open(`${origin}/view/dashboard#${projItem.homePage}`);
 }
 </script>
 
