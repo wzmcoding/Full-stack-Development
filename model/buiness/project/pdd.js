@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'pinduoduo',
+    name: '拼多多',
     desc: 'pdd电商系统',
     homePage: '',
     menu: [{

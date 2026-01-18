@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'taobao',
+    name: '淘宝',
     desc: 'taobao电商系统',
     homePage: '',
     menu: [{
