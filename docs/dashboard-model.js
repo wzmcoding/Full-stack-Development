@@ -44,13 +44,25 @@ const config = {
                         // ...schema, // 标准 schema 配置 - 注意：这里需要实际的schema对象
                         label: '', // 字段的中文名
                         type: '', // 字段类型
+                        // 字段在 table 中的相关配置
+                        tableOption: {
+                            // ...elTableColumnConfig 标准 el-table-column 配置
+                            visible: true, // 是否在表单中可见
+                        },
+                        // 其它 xxxOption
                     },
                     // ...
                 }
             },
-            tableConfig: {}, // table 相关配置
-            searchConfig: {}, // searchBar 相关配置
-            components: {}, // 模块组件
+            // table 相关配置
+            tableConfig: {
+                headerButtons: [],
+                rowButtons: [],
+            },
+            // searchBar 相关配置
+            searchConfig: {},
+            // 模块组件
+            components: {},
         },
     }]
 };
