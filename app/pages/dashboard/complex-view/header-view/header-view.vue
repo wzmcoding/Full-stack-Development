@@ -60,7 +60,7 @@ const handleProjectCommand = function (command) {
           @select="onMenuSelect"
       >
           <template v-for="item in menuStore.menuList">
-            <SubMenu v-if="item.subMenu && item.subMenu.length > 0" :menu="item" />
+            <SubMenu v-if="item.subMenu && item.subMenu.length > 0" :menuItem="item" />
             <el-menu-item v-else :index="item.key">{{ item.name }}</el-menu-item>
           </template>
       </el-menu>
