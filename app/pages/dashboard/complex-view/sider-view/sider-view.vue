@@ -53,7 +53,7 @@ watch(() => route.query.key, () => {
 watch(() => menuStore.menuList, () => {
   setMenuList();
   setActiveKey();
-})
+}, { deep: true });
 
 onMounted(() => {
   setMenuList();

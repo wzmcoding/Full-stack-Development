@@ -27,7 +27,7 @@ const setActiveKey = function () {
 }
 
 watch(() => route.query.key, setActiveKey);
-watch(() => menuStore.menuList, setActiveKey)
+watch(() => menuStore.menuList, setActiveKey, { deep: true });
 onMounted(() => {
   setActiveKey();
 });
