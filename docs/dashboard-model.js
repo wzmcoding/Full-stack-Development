@@ -36,7 +36,7 @@ const config = {
 
         // 当 moduleType = schema 时
         schemaConfig: {
-            api: '/api/user', // 数据源 api （遵循 RESTFUL 规范）
+            api: '', // 数据源 api （遵循 RESTFUL 规范）
             schema: {
                 type: 'object',
                 properties: {

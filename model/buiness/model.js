@@ -18,7 +18,7 @@ module.exports = {
             path: '/todo'
         }
     }, {
-        key: 'customer',
+        key: 'client',
         name: '客户管理',
         menuType: 'module',
         moduleType: 'custom',

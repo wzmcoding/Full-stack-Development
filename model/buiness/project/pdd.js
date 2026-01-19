@@ -11,12 +11,13 @@ module.exports = {
             path: '/todo'
         }
     }, {
-        key: 'customer',
+        key: 'client',
         name: '客户管理（拼多多）',
         menuType: 'module',
-        moduleType: 'custom',
-        customConfig: {
-            path: '/todo'
+        moduleType: 'schema',
+        schemaConfig: {
+            api: '/api/client',
+            schema: {}
         }
     }, {
         key: 'data',
@@ -64,9 +65,10 @@ module.exports = {
                     key: 'tages',
                     name: '标签',
                     menuType: 'module',
-                    moduleType: 'custom',
-                    customConfig: {
-                        path: '/todo'
+                    moduleType: 'schema',
+                    schemaConfig: {
+                        api: '/api/client',
+                        schema: {}
                     }
                 }]
             }]
