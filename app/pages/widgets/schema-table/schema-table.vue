@@ -187,7 +187,7 @@ defineExpose({
         </template>
       </el-table-column>
     </el-table>
-    <el-row class="pagination">
+    <el-row justify="end" class="pagination">
       <el-pagination
           :current-page="currentPage"
           :page-size="pageSize"
@@ -196,7 +196,7 @@ defineExpose({
           layout="total, sizes, prev, pager, next, jumper"
           @size-change="onPageSizeChange"
           @current-change="onCurrentPageChange"
-      ></el-pagination>
+      />
     </el-row>
   </div>
 </template>

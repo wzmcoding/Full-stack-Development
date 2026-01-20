@@ -66,7 +66,14 @@ const config = {
                 rowButtons: [{
                     label: '', // 按钮中文名
                     eventKey: '', // 按钮事件名
-                    eventOption: {}, // 按钮事件具体配置
+                    eventOption: {
+                        // 当 eventKey === 'remove'
+                        params: {
+                            // paramKey = 参数键
+                            // rowValueKey = 参数值(格式为 schema::tableKey ，到 table 中找相应的字段, 比如 user_id: schema::user_id)
+                            paramKey: rowValueKey
+                        }
+                    }, // 按钮事件具体配置
                     // elButtonConfig 标准 el-button 配置
                 }],
             },
