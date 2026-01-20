@@ -36,7 +36,7 @@ const config = {
 
         // 当 moduleType = schema 时
         schemaConfig: {
-            api: '/api/user', // 数据源 api （遵循 RESTFUL 规范）
+            api: '', // 数据源 api （遵循 RESTFUL 规范）
             schema: {
                 type: 'object',
                 properties: {
@@ -44,13 +44,36 @@ const config = {
                         // ...schema, // 标准 schema 配置 - 注意：这里需要实际的schema对象
                         label: '', // 字段的中文名
                         type: '', // 字段类型
+                        // 字段在 table 中的相关配置
+                        tableOption: {
+                            // ...elTableColumnConfig 标准 el-table-column 配置
+                            toFixed: 0, // 保留小数点后几位
+                            visible: true, // 是否在表单中可见
+                        },
+                        // 其它 xxxOption
                     },
                     // ...
                 }
             },
-            tableConfig: {}, // table 相关配置
-            searchConfig: {}, // searchBar 相关配置
-            components: {}, // 模块组件
+            // table 相关配置
+            tableConfig: {
+                headerButtons: [{
+                    label: '', // 按钮中文名
+                    eventKey: '', // 按钮事件名
+                    eventOption: {}, // 按钮事件具体配置
+                    // elButtonConfig 标准 el-button 配置
+                }],
+                rowButtons: [{
+                    label: '', // 按钮中文名
+                    eventKey: '', // 按钮事件名
+                    eventOption: {}, // 按钮事件具体配置
+                    // elButtonConfig 标准 el-button 配置
+                }],
+            },
+            // searchBar 相关配置
+            searchConfig: {},
+            // 模块组件
+            components: {},
         },
     }]
 };

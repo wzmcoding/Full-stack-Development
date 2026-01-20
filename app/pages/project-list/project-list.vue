@@ -1,8 +1,9 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import $curl from '$common/curl.js'
-
-import headerContainer from '$widgets/header-container/header-container.vue'
+// 在 js 中，用大写开头的驼峰
+// 在 template 中，用 小写 + '-' 去连接
+import HeaderContainer from '$widgets/header-container/header-container.vue'
 
 const loading = ref(false)
 const modelList = ref([])
@@ -33,7 +34,7 @@ const onEnter = (projItem) => {
 </script>
 
 <template>
-  <headerContainer title="项目列表">
+  <header-container title="项目列表">
     <template #main-content>
       <div v-loading="loading">
         <div v-for="item in modelList" :key="item.model?.key">
@@ -65,7 +66,7 @@ const onEnter = (projItem) => {
         </div>
       </div>
     </template>
-  </headerContainer>
+  </header-container>
 </template>
 
 <style lang="less" scoped>

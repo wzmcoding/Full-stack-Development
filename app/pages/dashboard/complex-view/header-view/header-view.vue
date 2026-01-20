@@ -1,5 +1,5 @@
 <script setup>
-import headerContainer from '$widgets/header-container/header-container.vue';
+import HeaderContainer from '$widgets/header-container/header-container.vue';
 import SubMenu from './complex-view/sub-menu/sub-menu.vue';
 import { useMenuStore } from '$store/menu.js';
 import { useProjectStore } from '$store/project.js';
@@ -18,12 +18,6 @@ defineProps({
 const emit = defineEmits(['menu-select']);
 
 const activeKey = ref('');
-watch(() => route.query.key, setActiveKey);
-watch(() => menuStore.menuList, setActiveKey)
-onMounted(() => {
-  setActiveKey();
-});
-
 const setActiveKey = function () {
   const menuItem = menuStore.findMenuItem({
     key: 'key',
@@ -31,6 +25,12 @@ const setActiveKey = function () {
   });
   activeKey.value = menuItem?.key;
 }
+
+watch(() => route.query.key, setActiveKey);
+watch(() => menuStore.menuList, setActiveKey, { deep: true });
+onMounted(() => {
+  setActiveKey();
+});
 
 const onMenuSelect = function (menuKey) {
   const menuItem = menuStore.findMenuItem({
@@ -50,7 +50,7 @@ const handleProjectCommand = function (command) {
 </script>
 
 <template>
-  <headerContainer :title="projName">
+  <header-container :title="projName">
     <template #menu-content>
       <!-- 根据 menuStore.menuList 渲染 -->
       <el-menu
@@ -60,7 +60,7 @@ const handleProjectCommand = function (command) {
           @select="onMenuSelect"
       >
           <template v-for="item in menuStore.menuList">
-            <SubMenu v-if="item.subMenu && item.subMenu.length > 0" :menuItem="item" />
+            <sub-menu v-if="item.subMenu && item.subMenu.length > 0" :menu-item="item"></sub-menu>
             <el-menu-item v-else :index="item.key">{{ item.name }}</el-menu-item>
           </template>
       </el-menu>
@@ -91,7 +91,7 @@ const handleProjectCommand = function (command) {
     <template #main-content>
       <slot name="main-content"></slot>
     </template>
-  </headerContainer>
+  </header-container>
 </template>
 
 <style scoped lang="less">
