@@ -7,7 +7,7 @@ module.exports = {
         menuType: 'module',
         moduleType: 'schema',
         schemaConfig: {
-            api: '/api/product',
+            api: '/api/proj/product',
             schema: {
                 type: 'object',
                 properties: {

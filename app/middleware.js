@@ -31,4 +31,7 @@ module.exports = (app) => {
 
     // 引入 API 参数校验
     app.use(app.middlewares.apiParamsVerify);
+
+    // 引入项目处理中间件
+    app.use(app.middlewares.projectHandler);
 }

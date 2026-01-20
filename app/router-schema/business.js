@@ -1,5 +1,5 @@
 module.exports = {
-    '/api/product/list': {
+    '/api/proj/product/list': {
         get: {
             query: {
                 type: 'object',
@@ -15,7 +15,7 @@ module.exports = {
             }
         }
     },
-    '/api/product': {
+    '/api/proj/product': {
         delete: {
             body: {
                 type: 'object',
