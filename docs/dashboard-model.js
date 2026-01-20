@@ -47,6 +47,7 @@ const config = {
                         // 字段在 table 中的相关配置
                         tableOption: {
                             // ...elTableColumnConfig 标准 el-table-column 配置
+                            toFixed: 0, // 保留小数点后几位
                             visible: true, // 是否在表单中可见
                         },
                         // 其它 xxxOption
@@ -56,8 +57,18 @@ const config = {
             },
             // table 相关配置
             tableConfig: {
-                headerButtons: [],
-                rowButtons: [],
+                headerButtons: [{
+                    label: '', // 按钮中文名
+                    eventKey: '', // 按钮事件名
+                    eventOption: {}, // 按钮事件具体配置
+                    // elButtonConfig 标准 el-button 配置
+                }],
+                rowButtons: [{
+                    label: '', // 按钮中文名
+                    eventKey: '', // 按钮事件名
+                    eventOption: {}, // 按钮事件具体配置
+                    // elButtonConfig 标准 el-button 配置
+                }],
             },
             // searchBar 相关配置
             searchConfig: {},
