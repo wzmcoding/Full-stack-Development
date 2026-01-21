@@ -29,6 +29,12 @@ const props = defineProps({
    * 表格数据源 api
    */
   api: String,
+
+  /**
+   * api 请求参数，请求 API 时携带
+   */
+  apiParams: Object,
+
   /**
    * buttons 操作按钮相关配置，结构如下：
    * [{
@@ -43,7 +49,7 @@ const props = defineProps({
 
 const emit = defineEmits(['operate']);
 
-const { schema, api, buttons } = toRefs(props);
+const { schema, api, apiParams, buttons } = toRefs(props);
 
 const operationWidth = computed(() => {
   return buttons?.value?.length > 0 ? buttons.value.reduce((pre, cur) => {
@@ -61,7 +67,7 @@ onMounted(() => {
   initData();
 })
 
-watch([schema, api], () => {
+watch([schema, api, apiParams], () => {
   initData();
 }, { deep: true });
 
@@ -92,6 +98,7 @@ const fetchTableData = async() => {
     method: 'get',
     url: `${api.value}/list`,
     query: {
+      ...apiParams.value,
       page: currentPage.value,
       size: pageSize.value,
     },

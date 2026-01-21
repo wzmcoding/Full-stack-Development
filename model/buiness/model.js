@@ -25,6 +25,10 @@ module.exports = {
                         tableOption: {
                             width: 200,
                         },
+                        searchOption: {
+                            comType: 'dynamicSelect',
+                            api: '/api/proj/product_enum/list',
+                        }
                     },
                     price: {
                         type: 'number',
@@ -32,6 +36,27 @@ module.exports = {
                         tableOption: {
                             width: 200,
                         },
+                        searchOption: {
+                            comType: 'select',
+                            enumList: [
+                                {
+                                    label: '全部',
+                                    value: -99
+                                },
+                                {
+                                    label: '￥39.9',
+                                    value: 39.9
+                                },
+                                {
+                                    label: '￥199',
+                                    value: 199
+                                },
+                                {
+                                    label: '￥699',
+                                    value: 699
+                                }
+                            ]
+                        }
                     },
                     inventory: {
                         type: 'number',
@@ -39,11 +64,18 @@ module.exports = {
                         tableOption: {
                             width: 200,
                         },
+                        searchOption: {
+                            comType: 'input',
+                        }
                     },
                     create_time: {
                         type: 'string',
                         label: '创建时间',
                         tableOption: {},
+                        searchOption: {
+                            comType: 'dateRange',
+
+                        }
                     },
                 }
             },

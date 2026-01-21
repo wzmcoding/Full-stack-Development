@@ -6,7 +6,7 @@ import SchemaTable from '$widgets/schema-table/schema-table.vue';
 
 const emit = defineEmits(['operate']);
 
-const { api, tableSchema, tableConfig } = inject('schemaViewData');
+const { api, apiParams, tableSchema, tableConfig } = inject('schemaViewData');
 
 const schemaTableRef = ref(null);
 
@@ -98,6 +98,7 @@ defineExpose({
        ref="schemaTableRef"
       :schema="tableSchema"
       :api="api"
+       :api-params="apiParams"
       :buttons="tableConfig?.rowButtons ?? []"
        @operate="operationHandler"
     ></schema-table>
