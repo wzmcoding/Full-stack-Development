@@ -12,7 +12,7 @@ async function getModelList() {
   const res = await $curl({
     method: 'get',
     url: '/api/project/model_list',
-    errorMessages: '获取项目列表失败',
+    errorMessage: '获取项目列表失败',
   })
   loading.value = false
 
@@ -29,7 +29,7 @@ onMounted(() => {
 
 const onEnter = (projItem) => {
   const { origin } = window.location;
-  window.open(`${origin}/view/dashboard#${projItem.homePage}`);
+  window.open(`${origin}/view/dashboard${projItem.homePage}`);
 }
 </script>
 

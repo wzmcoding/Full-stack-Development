@@ -48,9 +48,15 @@ const config = {
                         tableOption: {
                             // ...elTableColumnConfig 标准 el-table-column 配置
                             toFixed: 0, // 保留小数点后几位
-                            visible: true, // 是否在表单中可见
+                            visible: true, // 默认为 true (false 时，表示不在表单中显示)
                         },
                         // 其它 xxxOption
+                        // 字段在 search-bar 中的相关配置
+                        searchOption: {
+                            // ...eleComponentConfig, // 标准 el-component 配置
+                            comType: '', // 配置组件类型 input/select...
+                            default: '', // 默认值
+                        }
                     },
                     // ...
                 }
@@ -66,11 +72,18 @@ const config = {
                 rowButtons: [{
                     label: '', // 按钮中文名
                     eventKey: '', // 按钮事件名
-                    eventOption: {}, // 按钮事件具体配置
+                    eventOption: {
+                        // 当 eventKey === 'remove'
+                        params: {
+                            // paramKey = 参数键
+                            // rowValueKey = 参数值(格式为 schema::tableKey ，到 table 中找相应的字段, 比如 user_id: schema::user_id)
+                            paramKey: rowValueKey
+                        }
+                    }, // 按钮事件具体配置
                     // elButtonConfig 标准 el-button 配置
                 }],
             },
-            // searchBar 相关配置
+            // search-bar 相关配置
             searchConfig: {},
             // 模块组件
             components: {},

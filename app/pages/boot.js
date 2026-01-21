@@ -5,7 +5,7 @@ import ElementUI from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import '$pages/assets/custom.css'
 
 /**
@@ -29,7 +29,7 @@ export default (pageComponent, { routes, libs } = {}) => {
     // 引入页面路由
     if (routes && routes.length) {
         const router = createRouter({
-            history: createWebHashHistory(), // 采用 hash 模式
+            history: createWebHistory(), // 采用 history 模式
             routes
         })
         app.use(router)
