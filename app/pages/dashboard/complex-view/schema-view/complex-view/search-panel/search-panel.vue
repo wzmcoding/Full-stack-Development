@@ -1,5 +1,9 @@
 <script setup>
+import { inject } from 'vue';
 
+const { searchSchema } = inject('schemaViewData');
+
+const emit = defineEmits(['search']);
 </script>
 
 <template>

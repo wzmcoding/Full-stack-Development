@@ -48,9 +48,15 @@ const config = {
                         tableOption: {
                             // ...elTableColumnConfig 标准 el-table-column 配置
                             toFixed: 0, // 保留小数点后几位
-                            visible: true, // 是否在表单中可见
+                            visible: true, // 默认为 true (false 时，表示不在表单中显示)
                         },
                         // 其它 xxxOption
+                        // 字段在 search-bar 中的相关配置
+                        searchOption: {
+                            // ...eleComponentConfig, // 标准 el-component 配置
+                            comType: '', // 配置组件类型 input/select...
+                            default: '', // 默认值
+                        }
                     },
                     // ...
                 }
@@ -77,7 +83,7 @@ const config = {
                     // elButtonConfig 标准 el-button 配置
                 }],
             },
-            // searchBar 相关配置
+            // search-bar 相关配置
             searchConfig: {},
             // 模块组件
             components: {},
