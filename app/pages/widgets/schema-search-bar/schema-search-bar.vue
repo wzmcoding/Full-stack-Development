@@ -1,6 +1,6 @@
 <script setup>
 import { ref, toRefs } from 'vue';
-import SearchItemConfig from './schema-item-config.js';
+import SearchItemConfig from './search-item-config.js';
 
 const props = defineProps({
   /**
@@ -93,6 +93,15 @@ defineExpose({
 <style lang="less">
 .schema-search-bar {
   min-width: 500px;
+  .input {
+    width: 180px;
+  }
+  .select {
+    width: 180px;
+  }
+  .dynamic-select {
+    width: 180px;
+  }
   .search-btn {
     width: 100px;
   }

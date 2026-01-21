@@ -56,6 +56,12 @@ const config = {
                             // ...eleComponentConfig, // 标准 el-component 配置
                             comType: '', // 配置组件类型 input/select...
                             default: '', // 默认值
+
+                            // comType === 'select'
+                            enumList: [], // 下拉框可选项
+
+                            // comType === 'dynamicSelect'
+                            api: '',
                         }
                     },
                     // ...
