@@ -62,7 +62,20 @@ const config = {
 
                             // comType === 'dynamicSelect'
                             api: '',
-                        }
+                        },
+                        // 字段在不同动态 component 中的相关配置，前缀对应 componentConfig 中的键值
+                        // 如： componentConfig.createForm, 这里对应 createFormOption
+                        // 字段在 createForm 中的相关配置
+                        createFormOption: {
+                          // ...eleComponentConfig, // 标准 el-component 配置
+                            comType: '', // 控件类型 input/select/input-number
+                            visible: true, // 是否展示（true/false）, 默认为 true
+                            disabled: false, // 是否禁用（true/false）, 默认为 false
+                            default: '', // 默认值
+
+                            // commType === 'select' 时生效
+                            enumList: [], // 枚举列表
+                        },
                     },
                     // ...
                 }
@@ -72,13 +85,20 @@ const config = {
                 headerButtons: [{
                     label: '', // 按钮中文名
                     eventKey: '', // 按钮事件名
-                    eventOption: {}, // 按钮事件具体配置
+                    // 按钮事件具体配置
+                    eventOption: {
+                        // 当 eventKey === 'showComponent'
+                        comName: '' // 组件名称
+                    },
                     // elButtonConfig 标准 el-button 配置
                 }],
                 rowButtons: [{
                     label: '', // 按钮中文名
                     eventKey: '', // 按钮事件名
                     eventOption: {
+                        // 当 eventKey === 'showComponent'
+                        comName: '',// 组件名称
+
                         // 当 eventKey === 'remove'
                         params: {
                             // paramKey = 参数键
@@ -91,8 +111,15 @@ const config = {
             },
             // search-bar 相关配置
             searchConfig: {},
-            // 模块组件
-            components: {},
+            // 动态组件 相关配置
+            componentConfig: {
+                // create-form 表单相关配置
+                createForm: {
+                    title: '', // 表单标题
+                    saveBtnText: '', // 保存按钮文案
+                }
+                // ...支持用户动态扩展
+            },
         },
     }]
 };
