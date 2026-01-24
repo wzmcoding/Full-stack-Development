@@ -31,7 +31,7 @@ const onReset = () => {
 
 <style scoped lang="less">
 .search-panel {
-  margin: 10px;
+  margin: 10px 10px 0 10px;
 }
 :deep(.el-card__body) {
   padding-bottom: 2px;

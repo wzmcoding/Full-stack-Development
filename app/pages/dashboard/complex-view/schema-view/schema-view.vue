@@ -2,9 +2,10 @@
 import {provide, ref} from 'vue';
 import SearchPanel from './complex-view/search-panel/search-panel.vue';
 import TablePanel from './complex-view/table-panel/table-panel.vue';
+import ComponentConfig from './components/component-config.js';
 import { useSchema } from './hook/schema.js';
 
-const { api, tableSchema, tableConfig, searchSchema, searchConfig } = useSchema();
+const { api, tableSchema, tableConfig, searchSchema, searchConfig, components } = useSchema();
 
 const apiParams = ref({});
 provide('schemaViewData', {
@@ -13,14 +14,47 @@ provide('schemaViewData', {
   tableSchema,
   tableConfig,
   searchSchema,
-  searchConfig
+  searchConfig,
+  components
 });
+
+const tablePanelRef = ref(null);
+const comListRef = ref([]);
 
 const onSearch = (searchValObj) => {
   apiParams.value = searchValObj;
 };
 
-const onTableOperate = () => {
+// table 事件映射
+const EventHandlerMap = {
+  showComponent: showComponent
+}
+
+const onTableOperate = ({ btnConfig, rowData}) => {
+  const { eventKey } = btnConfig;
+  if (EventHandlerMap[eventKey]) {
+    EventHandlerMap[eventKey]({ btnConfig, rowData });
+  }
+}
+
+// showComponent 展示动态组件
+function showComponent({ btnConfig, rowData}) {
+  const { comName } = btnConfig.eventOption;
+  if (!comName) {
+    console.error('没配置组件名')
+    return;
+  }
+
+  const comRef = comListRef.value.find(item => item.name === comName);
+  if (!comRef || typeof comRef?.show !== 'function') {
+    console.error(`找不到组件：${comName}`)
+    return;
+  }
+
+  comRef?.show(rowData);
+}
+
+const onComponentCommand = () => {
 
 }
 </script>
@@ -33,7 +67,15 @@ const onTableOperate = () => {
     ></search-panel>
     <table-panel
       @operate="onTableOperate"
+      ref="tablePanelRef"
     ></table-panel>
+    <component
+        v-for="(item, key) in components"
+        :key="key"
+        :is="ComponentConfig[key]?.component"
+        ref="comListRef"
+        @command="onComponentCommand"
+    ></component>
   </el-row>
 </template>
 

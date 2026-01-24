@@ -83,6 +83,9 @@ module.exports = {
                 headerButtons: [{
                     label: '添加商品',
                     eventKey: 'showComponent',
+                    eventOption: {
+                        comName: 'createForm'
+                    },
                     type: 'primary',
                     plain: true,
                 }],
@@ -101,6 +104,12 @@ module.exports = {
                     type: 'danger',
                 }],
             },
+            componentConfig: {
+                createForm : {
+                    title: '新增商品',
+                    saveBtnText: '新增商品'
+                }
+            }
         }
     }, {
         key: 'order',
