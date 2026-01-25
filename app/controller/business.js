@@ -1,17 +1,30 @@
 module.exports = (app) => {
     const BaseController = require('./base')(app);
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     return class BusinessController extends BaseController {
+        async create(ctx) {
+            const { product_name: productName, price, inventory } = ctx.request.body;
+            await sleep(500);
+            this.success(ctx, {
+                product_id: Date.now(),
+                product_name: productName,
+                price,
+                inventory
+            });
+        }
 
-        remove(ctx) {
+        async remove(ctx) {
             const { product_id: productId } = ctx.request.body;
+            await sleep(500);
             this.success(ctx, {
                 projKey: ctx.projKey,
                 product_id: productId
             });
         }
 
-        getList(ctx) {
+        async getList(ctx) {
             const { product_name: productName, page, size } = ctx.request.query;
+            await sleep(500);
             let productList = [{
                 product_id: '1',
                 product_name: `${ctx.projKey} -《大前端面试宝典》`,

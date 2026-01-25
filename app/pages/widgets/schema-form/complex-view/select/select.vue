@@ -12,6 +12,7 @@ const props = defineProps({
 const { schemaKey, schema } = props;
 const { model } = toRefs(props);
 
+const name = ref('select');
 const dtoValue = ref();
 const validTips = ref(null);
 const initData = () => {
@@ -53,8 +54,8 @@ const validate = () => {
         console.error(validate.errors[0]);
         validTips.value = '不符合要求';
       }
+      return false;
     }
-    return false;
   }
 
   return true;
@@ -69,6 +70,7 @@ const onChange = () => {
 };
 
 defineExpose({
+  name,
   validate,
   getValue
 });

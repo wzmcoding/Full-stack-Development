@@ -28,6 +28,9 @@ module.exports = {
                         searchOption: {
                             comType: 'dynamicSelect',
                             api: '/api/proj/product_enum/list',
+                        },
+                        createFormOption: {
+                            comType: 'input',
                         }
                     },
                     price: {
@@ -56,6 +59,9 @@ module.exports = {
                                     value: 699
                                 }
                             ]
+                        },
+                        createFormOption: {
+                            comType: 'inputNumber',
                         }
                     },
                     inventory: {
@@ -66,6 +72,23 @@ module.exports = {
                         },
                         searchOption: {
                             comType: 'input',
+                        },
+                        createFormOption: {
+                            comType: 'select',
+                            enumList: [
+                                {
+                                    label: '100',
+                                    value: 100
+                                },
+                                {
+                                    label: '1000',
+                                    value: 1000
+                                },
+                                {
+                                    label: '10000',
+                                    value: 10000
+                                }
+                            ]
                         }
                     },
                     create_time: {
@@ -77,7 +100,8 @@ module.exports = {
 
                         }
                     },
-                }
+                },
+                required: ['product_name']
             },
             tableConfig: {
                 headerButtons: [{

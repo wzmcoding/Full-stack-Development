@@ -43,7 +43,9 @@ const formComList = ref([]);
 
 // 表单校验
 const validate = () => {
-  return formComList.value.every(component => component?.validate());
+  return formComList.value.every(component => {
+    return component?.validate()
+  });
 }
 
 // 获取表单值
@@ -76,7 +78,6 @@ defineExpose({
           :schema="itemSchema"
           :model="model ? model[key] : undefined"
       >
-
       </component>
     </template>
   </el-row>

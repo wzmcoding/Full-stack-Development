@@ -1,12 +1,65 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
+import { ElNotification } from 'element-plus';
+import $curl from '$common/curl.js';
+import SchemaForm from '$widgets/schema-form/schema-form.vue';
+
+const {
+  api,
+  components
+} = inject('schemaViewData');
+
+const emit = defineEmits(['command'])
 
 const name = ref('createForm');
 
+const schemaFormRef = ref(null);
 const isShow = ref(false);
+const loading = ref(false);
+const title = ref('');
+const saveBtnText = ref('');
+
 const show = (rowData) => {
+  const { config } = components.value[name.value];
+
+  title.value = config.title;
+  saveBtnText.value = config.saveBtnText;
+
   isShow.value = true;
-  console.log(rowData);
+}
+
+const close = () => {
+  isShow.value = false;
+}
+
+const save = async () => {
+  if (!schemaFormRef.value.validate()) return;
+
+  loading.value = true;
+
+  const res = await $curl({
+    method: 'post',
+    url: api.value,
+    data: {
+      ...schemaFormRef.value.getValue(),
+    }
+  });
+
+  loading.value = false;
+
+  if (!res || !res.success) return;
+
+  ElNotification({
+    title: '创建成功',
+    message: '创建成功',
+    type: 'success',
+  });
+
+  close();
+
+  emit('command', {
+    event: 'loadTableData'
+  });
 }
 
 defineExpose({
@@ -22,6 +75,19 @@ defineExpose({
       :destroy-on-close="true"
       :size="550"
   >
+    <template #header>
+      <h3 class="title">{{ title }}</h3>
+    </template>
+    <template #default>
+      <schema-form
+          ref="schemaFormRef"
+          v-loading="loading"
+          :schema="components[name]?.schema"
+      ></schema-form>
+    </template>
+    <template #footer>
+      <el-button type="primary" @click="save">{{ saveBtnText }}</el-button>
+    </template>
   </el-drawer>
 </template>
 
