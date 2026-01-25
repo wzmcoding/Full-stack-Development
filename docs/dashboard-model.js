@@ -76,6 +76,17 @@ const config = {
                             // commType === 'select' 时生效
                             enumList: [], // 枚举列表
                         },
+                        // 字段在 edit-form 中的相关配置
+                        editFormOption: {
+                          // ...eleComponentConfig, // 标准 el-component 配置
+                            comType: '', // 控件类型 input/select/input-number
+                            visible: true, // 是否展示（true/false）, 默认为 true
+                            disabled: false, // 是否禁用（true/false）, 默认为 false
+                            default: '', // 默认值
+
+                            // commType === 'select' 时生效
+                            enumList: [], // 枚举列表
+                        },
                     },
                     // ...
                 },
@@ -116,6 +127,12 @@ const config = {
             componentConfig: {
                 // create-form 表单相关配置
                 createForm: {
+                    title: '', // 表单标题
+                    saveBtnText: '', // 保存按钮文案
+                },
+                // edit-form 表单相关配置
+                editForm: {
+                    mainKey: '', // 表单主键，用于唯一标识要修改的数据对象
                     title: '', // 表单标题
                     saveBtnText: '', // 保存按钮文案
                 }

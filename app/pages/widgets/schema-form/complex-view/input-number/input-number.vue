@@ -6,7 +6,7 @@ const ajv = inject('ajv');
 const props = defineProps({
   schemaKey: String,
   schema: Object,
-  model: Object
+  model: Number
 });
 
 const { schemaKey, schema } = props;
@@ -63,9 +63,9 @@ const validate = () => {
       if (keyword === 'type') {
         validTips.value = `类型必须为 ${type}`;
       } else if (keyword === 'minimum') {
-        validate.value = `最小值应为：${params.limit}`
+        validTips.value = `最小值应为：${params.limit}`
       } else if (keyword === 'maximum') {
-        validate.value = `最大值应为：${params.limit}`
+        validTips.value = `最大值应为：${params.limit}`
       } else {
         console.error(validate.errors[0]);
         validTips.value = '不符合要求';
