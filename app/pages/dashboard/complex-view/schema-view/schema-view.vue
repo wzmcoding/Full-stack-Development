@@ -54,8 +54,12 @@ function showComponent({ btnConfig, rowData}) {
   comRef?.show(rowData);
 }
 
-const onComponentCommand = () => {
-
+// 响应组件事件
+const onComponentCommand = (data) => {
+  const { event } = data;
+  if (event === 'loadTableData') {
+    tablePanelRef.value?.loadTableData();
+  }
 }
 </script>
 

@@ -6,12 +6,13 @@ const ajv = inject('ajv');
 const props = defineProps({
   schemaKey: String,
   schema: Object,
-  model: Object
+  model: String,
 });
 
 const { schemaKey, schema } = props;
 const { model } = toRefs(props);
 
+const name = ref('input');
 const dtoValue = ref();
 const placeholder = ref('');
 const validTips = ref(null);
@@ -76,8 +77,8 @@ const validate = () => {
         console.error(validate.errors[0]);
         validTips.value = '不符合要求';
       }
+      return false;
     }
-    return false;
   }
 
   return true;
@@ -96,6 +97,7 @@ const onBlur = () => {
 };
 
 defineExpose({
+  name,
   validate,
   getValue
 });

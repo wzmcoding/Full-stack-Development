@@ -11,60 +11,81 @@ const {
 
 const emit = defineEmits(['command'])
 
-const name = ref('createForm');
+const name = ref('editForm');
 
 const schemaFormRef = ref(null);
 const isShow = ref(false);
 const loading = ref(false);
 const title = ref('');
 const saveBtnText = ref('');
+const mainKey = ref('');
+const mainValue = ref();
+const dtoModel = ref({});
 
-const show = () => {
+const show = (rowData) => {
   const { config } = components.value[name.value];
 
   title.value = config.title;
   saveBtnText.value = config.saveBtnText;
-
+  mainKey.value = config.mainKey; // 表单主键
+  mainValue.value = rowData[mainKey.value]; // 表单主键值
+  dtoModel.value = {};
   isShow.value = true;
-}
+
+  fetchFormData();
+};
 
 const close = () => {
   isShow.value = false;
-}
+};
+
+const fetchFormData = async () => {
+    if (loading.value) return;
+    loading.value = true;
+
+    const res = await $curl({
+      method: 'get',
+      url: api.value,
+      query: {
+        [mainKey.value]: mainValue.value
+      }
+    });
+    loading.value = false;
+
+    if (!res || !res.success || !res.data) return;
+
+    dtoModel.value = res.data;
+};
 
 const save = async () => {
-  if (loading.value) {
-    // 防止重复提交
-    return;
-  }
+  if (loading.value) return;
+
   if (!schemaFormRef.value.validate()) return;
 
   loading.value = true;
-
   const res = await $curl({
-    method: 'post',
+    method: 'put',
     url: api.value,
     data: {
-      ...schemaFormRef.value.getValue(),
+      [mainKey.value]: mainValue.value,
+      ...schemaFormRef.value.getValue()
     }
   });
-
   loading.value = false;
 
   if (!res || !res.success) return;
 
   ElNotification({
-    title: '创建成功',
-    message: '创建成功',
+    title: '修改成功',
+    message: '修改成功',
     type: 'success',
   });
 
   close();
-
   emit('command', {
     event: 'loadTableData'
   });
-}
+};
 
 defineExpose({
   name,
@@ -87,6 +108,7 @@ defineExpose({
           ref="schemaFormRef"
           v-loading="loading"
           :schema="components[name]?.schema"
+          :model="dtoModel"
       ></schema-form>
     </template>
     <template #footer>
