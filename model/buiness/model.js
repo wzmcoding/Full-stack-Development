@@ -21,7 +21,8 @@ module.exports = {
                         editFormOption: {
                             comType: 'input',
                             disabled: true,
-                        }
+                        },
+                        detailPanelOption: {}
                     },
                     product_name: {
                         type: 'string',
@@ -41,7 +42,8 @@ module.exports = {
                         },
                         editFormOption: {
                             comType: 'input',
-                        }
+                        },
+                        detailPanelOption: {}
                     },
                     price: {
                         type: 'number',
@@ -77,7 +79,8 @@ module.exports = {
                         },
                         editFormOption: {
                             comType: 'inputNumber',
-                        }
+                        },
+                        detailPanelOption: {}
                     },
                     inventory: {
                         type: 'number',
@@ -107,7 +110,8 @@ module.exports = {
                         },
                         editFormOption: {
                             comType: 'inputNumber',
-                        }
+                        },
+                        detailPanelOption: {}
                     },
                     create_time: {
                         type: 'string',
@@ -116,7 +120,8 @@ module.exports = {
                         searchOption: {
                             comType: 'dateRange',
 
-                        }
+                        },
+                        detailPanelOption: {}
                     },
                 },
                 required: ['product_name']
@@ -132,6 +137,13 @@ module.exports = {
                     plain: true,
                 }],
                 rowButtons: [{
+                    label: '查看详情',
+                    eventKey: 'showComponent',
+                    eventOption: {
+                        comName: 'detailPanel',
+                    },
+                    type: 'primary'
+                },{
                     label: '修改',
                     eventKey: 'showComponent',
                     eventOption: {
@@ -158,6 +170,10 @@ module.exports = {
                     mainKey: 'product_id',
                     title: '修改商品',
                     saveBtnText: '修改商品'
+                },
+                detailPanel: {
+                    mainKey: 'product_id',
+                    title: '商品详情'
                 }
             }
         }
