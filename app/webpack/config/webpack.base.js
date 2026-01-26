@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const pageEntries = {};
 const htmlWebpackPluginList = [];
 // 获取 app/pages 目录下所有入口文件（entry.xx.js）
-const entryList = glob.sync(path.resolve(process.cwd(), './app/pages/**/entry.*.js'))
+const entryList = glob.sync(path.resolve(__dirname, '../../pages/**/entry.*.js'))
 
 entryList.forEach(file => {
     const entryName = path.basename(file, '.js')
@@ -21,7 +21,7 @@ entryList.forEach(file => {
         // 产物（最终模板）输出路径
         filename: path.resolve(process.cwd(), "./app/public/dist/", `${entryName}.tpl`),
         // 指定要使用的模板文件
-        template: path.resolve(process.cwd(), './app/view/entry.tpl'),
+        template: path.resolve(__dirname, '../../view/entry.tpl'),
         // 要注入的代码块
         chunks: [entryName]
     }))
@@ -40,7 +40,7 @@ module.exports = {
                 test: /\.vue$/,
                 use: [
                     {
-                        loader: 'vue-loader',
+                        loader: require.resolve('vue-loader'),
                         options: {
                             compilerOptions: {
                                 preserveWhitespace: false
@@ -53,24 +53,16 @@ module.exports = {
                 test: /\.js$/,
                 include: [
                     // 只对业务代码进行 babel, 加快 webpack 打包速度
-                    path.resolve(process.cwd(), './app/pages'),
+                    path.resolve(__dirname, '../../pages'),
                 ],
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [
-                                '@babel/preset-env'
-                            ]
-                        }
-                    }
-                ],
-                exclude: /node_modules/
+                use: {
+                    loader: require.resolve('babel-loader'),
+                },
             },
             {
                 test: /\.(png|jpe?g|gif)(\?.+)?$/,
                 use: {
-                    loader: 'url-loader',
+                    loader: require.resolve('url-loader'),
                     // options: {
                     //     limit: 300,
                     //     esModule: false,
@@ -79,15 +71,22 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [
+                    require.resolve('style-loader'),
+                    require.resolve('css-loader')
+                ]
             },
             {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader']
+                use: [
+                    require.resolve('style-loader'),
+                    require.resolve('css-loader'),
+                    require.resolve('less-loader')
+                ]
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-                use: 'file-loader'
+                use: require.resolve('file-loader')
             }
         ]
     },
@@ -97,10 +96,10 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue', '.less', '.css'],
         alias: {
-            $pages: path.resolve(process.cwd(), './app/pages'),
-            $common: path.resolve(process.cwd(), './app/pages/common'),
-            $widgets: path.resolve(process.cwd(), './app/pages/widgets'),
-            $store: path.resolve(process.cwd(), './app/pages/store'),
+            $pages: path.resolve(__dirname, '../../pages'),
+            $common: path.resolve(__dirname, '../../pages/common'),
+            $widgets: path.resolve(__dirname, '../../pages/widgets'),
+            $store: path.resolve(__dirname, '../../pages/store'),
         },
     },
     // 配置 webpack 插件
