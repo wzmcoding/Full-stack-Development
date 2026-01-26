@@ -16,12 +16,18 @@ const { sep } = path;
  */
 
 module.exports = (app) => {
-    //读取 app/extend/ 文件夹下所有.js文件
-    const extendPath = path.resolve(app.businessPath, `.${sep}extend`);
-    const fileList = glob.sync(path.resolve(extendPath, `.${sep}**${sep}**.js`))
+    // 读取 elpis/app/extend/ 文件夹下所有.js文件
+    const elpisExtendPath = path.resolve(__dirname, `..${sep}..${sep}app${sep}extend`);
+    const elpisFileList = glob.sync(path.resolve(elpisExtendPath, `.${sep}**${sep}**.js`));
+    elpisFileList.forEach(handleFile);
 
-    //遍历所有文件目录,把内容加载到 app.extend 下
-    fileList.forEach(file=>{
+    // 读取 业务/app/extend/ 文件夹下所有.js文件
+    const businessExtendPath = path.resolve(app.businessPath, `.${sep}extend`);
+    const businessFileList = glob.sync(path.resolve(businessExtendPath, `.${sep}**${sep}**.js`));
+    businessFileList.forEach(handleFile);
+
+    // 把内容加载到 app.extend 下
+    function handleFile(file) {
         //提取文件名称
         let name = path.resolve(file);
         //截取路径 把 app/extend/custom-extend.js 改为 custom-extend
@@ -37,5 +43,5 @@ module.exports = (app) => {
             }
         }
         app[name] = require(path.resolve(file))(app);
-    });
+    }
 } 
