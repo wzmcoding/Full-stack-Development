@@ -1,6 +1,6 @@
 <script setup>
 import { ref, inject } from 'vue';
-import $curl from '$common/curl.js';
+import $curl from '$elpisCommon/curl.js';
 
 const {
   api,

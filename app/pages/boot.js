@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
-import pinia from '$store'
+import pinia from '$elpisStore'
 
 import ElementUI from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import { createRouter, createWebHistory } from 'vue-router'
-import '$pages/assets/custom.css'
+import '$elpisPages/assets/custom.css'
 
 /**
  * vue 页面主入口，用于启动vue
