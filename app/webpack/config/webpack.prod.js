@@ -35,17 +35,17 @@ const webpackConfig = merge.smart(baseConfig, {
                 test: /\.css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'happypack/loader?id=css'
+                    `${require.resolve('happypack/loader')}?id=css`
                 ]
             },
             {
                 test: /\.js$/,
                 include: [
                     // 只对业务代码进行 babel, 加快 webpack 打包速度
-                    path.resolve(process.cwd(), './app/pages')
+                    path.resolve(__dirname, '../../pages')
                 ],
                 use: [
-                    'happypack/loader?id=js'
+                    `${require.resolve('happypack/loader')}?id=js`
                 ]
             }
         ]
@@ -72,11 +72,9 @@ const webpackConfig = merge.smart(baseConfig, {
         new HappyPack({
             ...happypackCommonConfig,
             id: 'js',
-            loaders: [`babel-loader?${JSON.stringify({
-                presets: ['@babel/preset-env'],
-                plugins: [
-                    '@babel/plugin-transform-runtime'
-                ]
+            loaders: [`${require.resolve('babel-loader')}?${JSON.stringify({
+                presets: [require.resolve('@babel/preset-env')],
+                plugins: [require.resolve('@babel/plugin-transform-runtime')]
             })}`]
         }),
         // 多线程打包 css, 加快打包速度
@@ -84,7 +82,7 @@ const webpackConfig = merge.smart(baseConfig, {
             ...happypackCommonConfig,
             id: 'css',
             loaders: [{
-                path: 'css-loader',
+                path: require.resolve('css-loader'),
                 options: {
                     importLoaders: 1,
                 }
