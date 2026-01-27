@@ -6,6 +6,16 @@ const FEBuildProd = require('./app/webpack/prod.js');
 
 module.exports = {
     /**
+     * 服务端基础
+     */
+    Controller: {
+        Base: require('./app/controller/base.js'),
+    },
+    Service: {
+        Base: require('./app/service/base.js'),
+    },
+
+    /**
      * 编译构建前端工程
      * @param env 环境变量 local/production
      */
